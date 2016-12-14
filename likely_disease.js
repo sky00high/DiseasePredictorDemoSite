@@ -3,6 +3,16 @@ var genderValue = 0;
 var raceValue = 0;
 var ethnicityValue = 0;
 
+
+var backgroundColors = [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ];
+
 var clusterCenters = [[0.432675022595,0.584603772086,0.287420421703,0.0951115834219],[4.0,0.589634626529,0.147453232493,0.0314464123861], [2.55342053822,0.590980872652,0.225106687074,0.0219183004638], [3.03001268829,0.308520675407,0.160702085434,1.0],[0.224252455037,0.0,1.95665894295,0.476376475781],[0.297091030949,1.00036753975,1.97441274714,0.317543537246],[1.79963898917,0.69681218523,1.93670053929,0.631122699113],[3.36867453365,0.408751915864,1.78243884811,0.395599431783]];
 var group0Diseases = [
     {
@@ -315,6 +325,16 @@ var group7Diseases = [
 
 ];
 
+var groupDiseases = [
+    group0Diseases, 
+    group1Diseases,
+    group2Diseases,
+    group3Diseases,
+    group4Diseases,
+    group5Diseases,
+    group6Diseases,
+    group7Diseases
+];
 var diseaseDescriptions = {};
 
 diseaseDescriptions['657'] = 'Mood disorders are among the most pervasive of all mental disorders and include major depression, in which the individual commonly reports feeling, for a time period of two weeks or more, sad or blue, uninterested in things previously of interest, psychomotor retardation or agitation, and increased or decreased appetite since the depressive episode ensued.';
@@ -345,14 +365,17 @@ diseaseDescriptions['50'] = "Diabetes can cause serious health complications inc
 
 
 $(document).ready(function(){
+    sortDiseasesByLikelyhood();
     var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
+    myChart1 = new Chart(ctx, {
         type: 'horizontalBar',
+
         data: {
             labels: ["disease1", "disease2", "disease3", "disease4", "disease5"],
             datasets: [{
                 label: 'Diseases that NY state inpatient with similar charasristic as you have',
                 data: [0.5, 0.3, 0.2, 0.05, 0.05],
+
                 borderWidth: 1,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -385,92 +408,7 @@ $(document).ready(function(){
 
 
 
-    var data = {
-        datasets: [
-                {
-                    label: 'disease1',
-                    data: [
-                        {
-                            x: 10000,
-                            y: 50,
-                            r: 10
-                        }
-                    ],
-                    backgroundColor:"#FF6384",
-                    hoverBackgroundColor: "#FF6384",
-                },
-                            {
-                    label: 'sisease2',
-                    data: [
-                        {
-                            x: 20000,
-                            y: 60,
-                            r: 10
-                        }
-                    ],
-                    backgroundColor:"#FF6384",
-                    hoverBackgroundColor: "#FF6384",
-                },
-                            {
-                    label: 'disease3',
-                    data: [
-                        {
-                            x: 30000,
-                            y: 40,
-                            r: 10
-                        }
-                    ],
-                    backgroundColor:"#FF6384",
-                    hoverBackgroundColor: "#FF6384",
-                },
-                            {
-                    label: 'disease4',
-                    data: [
-                        {
-                            x: 50000,
-                            y: 10,
-                            r: 10
-                        }
-                    ],
-                    backgroundColor:"#FF6384",
-                    hoverBackgroundColor: "#FF6384",
-                },
-                            {
-                    label: 'diease5',
-                    data: [
-                        {
-                            x: 70000,
-                            y: 80,
-                            r: 10
-                        }
-                    ],
-                    backgroundColor:"#FF6384",
-                    hoverBackgroundColor: "#FF6384",
-                },
-            ]
-    };
-    options = {
-      scales: {
-        xAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'average expense'
-          }
-        }],
-        yAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'average hospital duration'
-          }
-        }]
-      }     
-    };
-    var ctx2 = document.getElementById("myChart2");
-    var myBubbleChart = new Chart(ctx2,{
-        type: 'bubble',
-        data: data,
-        options:options
-    });
+
 });
 
 
@@ -521,10 +459,131 @@ function printCurrentValue(){
 }
 
 function replotGraph(){
-    console.log('lalala');
     var groupIndex = calculateGroupIndex();
+    myChart1.clear();
+    $('#myChart').remove();
+
+    $newChart = $('<canvas id="myChart" width="400" height="300"></canvas>');
+    $newChart.appendTo('#likelyhoodChartDiv');
+    plotDiseaseLikelyhoodGraph(groupIndex);
+
+    $('#myChart2').remove();
+    $newChart = $('<canvas id="myChart2" width="400" height="300"></canvas>');
+    $newChart.appendTo('#severenessChartDiv');
+    plotDiseaseSeverenessChart(groupIndex);
+    
 }
 
+function plotDiseaseLikelyhoodGraph(groupIndex){
+    var thisGroupDiseases = groupDiseases[groupIndex];
+    var labels = [];
+    var likelyhood = [];
+    for(var i = 0; i < thisGroupDiseases.length; i++){
+        labels.push(thisGroupDiseases[i].name);
+        likelyhood.push(thisGroupDiseases[i].p);
+    }
+
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: labels,
+            datasets: [{
+                //label: 'Diseases that NY state inpatient with similar charasristic as you have',
+                data: likelyhood,
+                borderWidth: 1,
+                //xAxisID: 'likelyhood',
+                backgroundColor: backgroundColors,
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        max: Math.max.apply(null, likelyhood) + 0.2,
+                        display: false                   
+                    }
+                }]
+            },
+            legend: {
+                display:false
+            },
+            tooltips:{
+                enabled: false
+            }
+        }
+    });
+}
+
+function plotDiseaseSeverenessChart(groupIndex){
+    var thisGroupDiseases = groupDiseases[groupIndex];
+    var labels = [];
+    var hospitalStay = [];
+    var cost = [];
+    var datasets = [];
+    for(var i = 0; i < thisGroupDiseases.length; i++){
+        datasets.push({
+            label: thisGroupDiseases[i].name,
+            data: [
+                {
+                    x: thisGroupDiseases[i].lengthOfStay,
+                    y: thisGroupDiseases[i].cost,
+                    r: thisGroupDiseases[i].p * 5
+                }
+
+            ],
+            backgroundColor: backgroundColors[i],
+
+        });
+
+        
+    }
+    var data = {
+        datasets: datasets
+    };
+    var options = {
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'average expense'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'average hospital duration'
+          }
+        }]
+      }     
+    };
+    var ctx2 = document.getElementById("myChart2");
+    var myBubbleChart = new Chart(ctx2,{
+        type: 'bubble',
+        data: data,
+        options:options
+    });
+
+}
+
+function sortDiseasesByLikelyhood(){
+    for(var i = 0; i < groupDiseases.length; i++){
+        groupDiseases[i].sort(function (a,b) {
+            if(a.p < b.p) return 1;
+            else if(a.p > b.p) return -1;
+            else return 0;
+        });
+    }
+}
 function calculateGroupIndex(){
     var min_dist2;
     var min_index = 0;
