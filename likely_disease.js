@@ -366,7 +366,9 @@ diseaseDescriptions['50'] = "Diabetes can cause serious health complications inc
 
 $(document).ready(function(){
     sortDiseasesByLikelyhood();
+    /*
     var ctx = document.getElementById("myChart");
+
     myChart1 = new Chart(ctx, {
         type: 'horizontalBar',
 
@@ -405,6 +407,8 @@ $(document).ready(function(){
             }
         }
     });
+    */
+    $('.panel').addClass('hidden');
 
 
 
@@ -459,18 +463,20 @@ function printCurrentValue(){
 }
 
 function replotGraph(){
+    $('.panel').removeClass('hidden');
     var groupIndex = calculateGroupIndex();
-    myChart1.clear();
     $('#myChart').remove();
 
-    $newChart = $('<canvas id="myChart" width="400" height="300"></canvas>');
+    $newChart = $('<canvas id="myChart" width="400" height="200"></canvas>');
     $newChart.appendTo('#likelyhoodChartDiv');
     plotDiseaseLikelyhoodGraph(groupIndex);
 
     $('#myChart2').remove();
-    $newChart = $('<canvas id="myChart2" width="400" height="300"></canvas>');
+    $newChart = $('<canvas id="myChart2" width="400" height="200"></canvas>');
     $newChart.appendTo('#severenessChartDiv');
     plotDiseaseSeverenessChart(groupIndex);
+
+    renderDiseaseDescription(groupIndex);
     
 }
 
@@ -574,7 +580,17 @@ function plotDiseaseSeverenessChart(groupIndex){
     });
 
 }
+function renderDiseaseDescription(groupIndex){
+    var thisGroupDiseases = groupDiseases[groupIndex];
+    for(var i = 0; i < 5; i++){
+        var name = thisGroupDiseases[i].name;
+        var description = diseaseDescriptions[thisGroupDiseases[i].code];
+        $('#diseaseName' + i).text(name);
+        $('#diseaseDescription' +i).text(description);
+    }
 
+
+}
 function sortDiseasesByLikelyhood(){
     for(var i = 0; i < groupDiseases.length; i++){
         groupDiseases[i].sort(function (a,b) {

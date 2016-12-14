@@ -22,7 +22,7 @@
             <span class="icon-bar"/>
             <span class="icon-bar"/>
           </button>
-          <a class="navbar-brand" href="#">Demo Site</a>
+          <a class="navbar-brand" href="index.html">Demo Site</a>
           
         </div>
       </div>
@@ -81,32 +81,63 @@
         </div>
         <div class='col-md-9' id='resultDiv' style="min-height:900px">
           <div class='row' style='margin-top:20px'>
-            <div class='col-md-9'>
+            <div class='col-md-12'>
               <div class="panel panel-default">
-                <div class="panel-heading">Panel heading without title</div>
+                <div class="panel-heading">Disease Likelyhood</div>
                 <div class="panel-body" id='likelyhoodChartDiv'>
                   <canvas id="myChart" width="400" height="300"></canvas>
                 </div>
               </div>
-              
-
-              
             </div>
-            <div class='col-md-9'>
+            <div class='col-md-12'>
               <div class="panel panel-default">
-                <div class="panel-heading">Panel heading without title</div>
+                <div class="panel-heading">Disease Severeness</div>
                 <div class="panel-body" id='severenessChartDiv'>
                   <canvas id="myChart2" width="400" height="300"></canvas>
                 </div>
               </div>
-              
+            </div>
+            <div class='col-md-12'>
+              <div class="panel panel-default">
+                <div class="panel-heading">Disease Description</div>
+                <div class="panel-body" id='severenessChartDiv'>
+                  
 
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#diseaseDescription0" id='diseaseName0'>Home</a></li>
+                    <li><a data-toggle="tab" href="#diseaseDescription1" id='diseaseName1' >Menu 1</a></li>
+                    <li><a data-toggle="tab" href="#diseaseDescription2" id='diseaseName2'>Menu 2</a></li>
+                    <li><a data-toggle="tab" href="#diseaseDescription3" id='diseaseName3'>Menu 1</a></li>
+                    <li><a data-toggle="tab" href="#diseaseDescription4" id='diseaseName4'>Menu 1</a></li>
+                  </ul>
+
+                  <div class="tab-content" style="margin-top:20px">
+                    <div id="diseaseDescription0" class="tab-pane fade in active">
+                      <p>Some content.</p>
+                    </div>
+                    <div id="diseaseDescription1" class="tab-pane fade">
+                      <p>Some content in menu 1.</p>
+                    </div>
+                    <div id="diseaseDescription2" class="tab-pane fade">
+                      <p>Some content in menu 2.</p>
+                    </div>
+                    <div id="diseaseDescription3" class="tab-pane fade">
+                      <p>Some content in menu 2.</p>
+                    </div>
+                    <div id="diseaseDescription4" class="tab-pane fade">
+                      <p>Some content in menu 2.</p>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
               
             </div>
-
-        </div>
-      </div>
-    </div>
+          </div><!--row-->
+        </div><!--resultDiv-->
+      </div><!--row-->
+    </div><!--container-fluid-->
 
 
 
