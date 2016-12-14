@@ -171,7 +171,7 @@ function setEthnicity(id, value){
     var text = $this.text();
 
     $this.parent().parent().parent().children(':first-child').text(text);
-    printCurrentValue();
+    //printCurrentValue();
 }
 
 function printCurrentValue(){
@@ -194,8 +194,8 @@ function calculateGroupIndex(){
         clusterCenter = clusterCenters[i];
 
         var dist2 = 0.0;
-        for(var i = 0; i < 4; i++){
-            dist2 += Math.sqrt(this_data[i] - clusterCenter[i]);
+        for(var j = 0; j < 4; j++){
+            dist2 += Math.pow(this_data[j] - clusterCenter[j], 2);
         }
 
         if(i == 0){
@@ -208,5 +208,47 @@ function calculateGroupIndex(){
     }
     console.log('min dist2 is ' + min_dist2);
     console.log('this data belongs to group ' + min_index);
-    return i;
+    return min_index;
+}
+function calculateGroupIndexWithCustomData(data){
+    var min_dist2;
+    var min_index = 0;
+    var this_data = data;
+    for(var i = 0; i < clusterCenters.length; i++){
+        clusterCenter = clusterCenters[i];
+
+        var dist2 = 0.0;
+        for(var j = 0; j < 4; j++){
+            dist2 += Math.pow(this_data[j] - clusterCenter[j], 2);
+        }
+
+        if(i == 0){
+            min_dist2 = dist2;
+        } else if(dist2 < min_dist2){
+            min_dist2 = dist2;
+            min_index = i;
+        }
+
+    }
+    //console.log('min dist2 is ' + min_dist2);
+    //console.log('this data belongs to group ' + min_index);
+    return min_index;
+}
+
+function test(){
+    var testDir = {};
+    for(var i = 0 ;i < 5; i++){
+        for(var j = 0 ;j < 4; j++){
+            for(var z = 0 ;z < 2; z++){
+                var data = [i,1, j,z];
+                var gi = calculateGroupIndexWithCustomData(data);
+                if(testDir[gi] == null) testDir[gi] = 0;
+                else testDir[gi] += 1;
+                
+            }
+        }
+
+    }
+    console.log(testDir);
+        
 }
