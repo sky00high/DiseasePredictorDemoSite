@@ -32,20 +32,52 @@
         <div id='inputDiv' class='col-md-3'>
           <div class="input-group input-group-sm">
             <span class="input-group-addon" id="basic-addon3">Age group</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a id='ageGroupSelection4' onClick='setAgeGroup(this.id, 4)' href="#">70 and older</a></li>
+                <li><a id='ageGroupSelection3' onClick='setAgeGroup(this.id, 3)' href="#">50 to 69</a></li>
+                <li><a id='ageGroupSelection2' onClick='setAgeGroup(this.id, 2)' href="#">30 to 49</a></li>
+                <li><a id='ageGroupSelection1' onClick='setAgeGroup(this.id, 1)' href="#">18 to 29</a></li>
+                <li><a id='ageGroupSelection0' onClick='setAgeGroup(this.id, 0)' href="#">0 to 17</a></li>
+              </ul>
+            </div>          
           </div>
           <div class="input-group input-group-sm">
             <span class="input-group-addon" id="basic-addon3">Gender</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a id='genderSelection0' onClick='setGender(this.id, 0)' href="#">Male</a></li>
+                <li><a id='genderSelection1' onClick='setGender(this.id, 1)' href="#">Female</a></li>
+              </ul>
+            </div>          
           </div>
           <div class="input-group input-group-sm">
             <span class="input-group-addon" id="basic-addon3">Race</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a id='raceSelection0' onClick='setRace(this.id, 0)' href="#">White</a></li>
+                <li><a id='raceSelection1' onClick='setRace(this.id, 1)' href="#">Black/African American</a></li>
+                <li><a id='raceSelection2' onClick='setRace(this.id, 2)' href="#">Others</a></li>
+                <li><a id='raceSelection3' onClick='setRace(this.id, 3)' href="#">Don't want to disclosure</a></li>
+              </ul>
+            </div>          
           </div>
           <div class="input-group input-group-sm">
-            <span class="input-group-addon" id="basic-addon3">Ethitity</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <span class="input-group-addon" id="basic-addon3">Ethnicity</span>
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a id='ethnicitySelection0' onClick='setEthnicity(this.id, 0)' href="#">Not Hispanic</a></li>
+                <li><a id='ethnicitySelection1' onClick='setEthnicity(this.id, 1)' href="#">Hispanic</a></li>
+
+              </ul>
+            </div>          
           </div>
+          <button onClick='replotGraph()' class='btn' style='float:right; margin-top:30px'> Submit </button>
+          
         </div>
         <div class='col-md-9' id='resultDiv' style="min-height:900px">
           <div class='row' style='margin-top:20px'>
