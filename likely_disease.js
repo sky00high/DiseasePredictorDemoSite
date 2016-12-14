@@ -4,6 +4,121 @@ var raceValue = 0;
 var ethnicityValue = 0;
 
 var clusterCenters = [[0.432675022595,0.584603772086,0.287420421703,0.0951115834219],[4.0,0.589634626529,0.147453232493,0.0314464123861], [2.55342053822,0.590980872652,0.225106687074,0.0219183004638], [3.03001268829,0.308520675407,0.160702085434,1.0],[0.224252455037,0.0,1.95665894295,0.476376475781],[0.297091030949,1.00036753975,1.97441274714,0.317543537246],[1.79963898917,0.69681218523,1.93670053929,0.631122699113],[3.36867453365,0.408751915864,1.78243884811,0.395599431783]];
+var group0Diseases = [
+    {
+        name: 'Mood Disorders',
+        code: '657',
+        cost: 9914,
+        lengthOfStay: 8.83,
+        p: 3.95
+    },
+    {
+        name:'Substance-RLTD Disorder',
+        code:'661',
+        cost:6326,
+        lengthOfStay:7.24,
+        p:2.24
+    },
+    {
+        name:'Asthma',
+        code:'128',
+        cost:7213,
+        lengthOfStay:2.29,
+        p:1.98
+    },
+    {
+        name:'Schezophrenia Psych Disorder',
+        code:'659',
+        cost:19779,
+        lengthOfStay:16.56,
+        p:1.84
+    },
+    {
+        name:'Eplepsy/Convulsions',
+        code:'83',
+        cost:9415,
+        lengthOfStay:2.85,
+        p:1.71
+    }
+];
+
+var group1Disease = [
+    {
+        name:'Congestive Heart Failure',
+        code:'108',
+        cost:14066,
+        lengthOfStay:6.24,
+        p:5.27
+    },
+    {
+        name:'Septicemia',
+        code:'2',
+        cost:22947,
+        lengthOfStay:9.46,
+        p:6.93
+    },
+    {
+        name:'Dysrhythmia',
+        code:'106',
+        cost:13132,
+        lengthOfStay:4.46,
+        p:3.87
+    },
+    {
+        name:'Pneumonia',
+        code:'122',
+        cost:12496,
+        lengthOfStay:6.6,
+        p:3.12
+    },
+    {
+        name:'Coronary Ahteroscler',
+        code:'101',
+        cost:19713,
+        lengthOfStay:3.97,
+        p:2.31
+    }
+];
+
+var group2Disease = [
+    {
+        name:'Osteoarthritis',
+        code:'203',
+        cost:18378,
+        lengthOfStay:3.17,
+        p:3.23
+    },
+    {
+        name:'Mood Disorders',
+        code:'657',
+        cost:1159,
+        lengthOfStay:10.25,
+        p:2.97
+    },
+    {
+        name:'Alcohol-related Disorder',
+        code:'660',
+        cost:7202,
+        lengthOfStay:5.97,
+        p:2.78
+    },
+    {
+        name:'Chest Pain',
+        code:'102',
+        cost:5879,
+        lengthOfStay:1.96,
+        p:2.64
+    },
+    {
+        name:'Coronary Atheroscler',
+        code:'101',
+        cost:18328,
+        lengthOfStay:3.33,
+        p:2.19
+    }
+];
+
+
 
 $(document).ready(function(){
     var ctx = document.getElementById("myChart");
