@@ -467,7 +467,7 @@ function replotGraph(){
     var groupIndex = calculateGroupIndex();
     $('#myChart').remove();
 
-    $newChart = $('<canvas id="myChart" width="400" height="200"></canvas>');
+    $newChart = $('<canvas id="myChart" width="400" height="100"></canvas>');
     $newChart.appendTo('#likelyhoodChartDiv');
     plotDiseaseLikelyhoodGraph(groupIndex);
 
@@ -536,6 +536,11 @@ function plotDiseaseSeverenessChart(groupIndex){
     var hospitalStay = [];
     var cost = [];
     var datasets = [];
+    var likelyhood = [];
+    for(var i = 0; i < thisGroupDiseases.length; i++){
+        likelyhood.push(thisGroupDiseases[i].p);
+    }
+
     for(var i = 0; i < thisGroupDiseases.length; i++){
         datasets.push({
             label: thisGroupDiseases[i].name,
@@ -543,7 +548,7 @@ function plotDiseaseSeverenessChart(groupIndex){
                 {
                     x: thisGroupDiseases[i].lengthOfStay,
                     y: thisGroupDiseases[i].cost,
-                    r: thisGroupDiseases[i].p * 5
+                    r: thisGroupDiseases[i].p * (20/ Math.max.apply(null, likelyhood))
                 }
 
             ],
@@ -586,7 +591,7 @@ function renderDiseaseDescription(groupIndex){
         var name = thisGroupDiseases[i].name;
         var description = diseaseDescriptions[thisGroupDiseases[i].code];
         $('#diseaseName' + i).text(name);
-        $('#diseaseDescription' +i).text(description);
+        $('#diseaseDescription' +i + ' p').text(description);
     }
 
 
